@@ -1,0 +1,22 @@
+{
+  "name": "study-buddy-web",
+  "version": "1.0.0",
+  "description": "Study Buddy - Responsive Education Web Application in Hindi for Class 6-10 students",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Static assets ready in root and public/'"
+  },
+  "keywords": [
+    "education",
+    "study-buddy",
+    "hindi",
+    "class-6-to-10",
+    "quiz",
+    "math-practice",
+    "pwa"
+  ],
+  "author": "Study Buddy Team",
+  "license": "MIT"
+}

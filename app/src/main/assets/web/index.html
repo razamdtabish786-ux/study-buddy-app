@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#1E3A8A">
+    <meta name="description" content="Study Buddy - कक्षा 6 से 10 तक के हिंदी माध्यम विद्यार्थियों के लिए मुफ़्त अध्ययन नोट्स, क्विज और गणित अभ्यास।">
+    <meta name="keywords" content="Study Buddy, education, study notes, quiz, math practice, class 6-10, hindi notes">
+    
+    <!-- OpenGraph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Study Buddy (स्टडी बडी) - Smart Learning App">
+    <meta property="og:description" content="कक्षा 6 से 10 के अध्ययन नोट्स, प्रश्नोत्तरी और गणित अभ्यास - पूर्णतः निःशुल्क और ऑफ़लाइन।">
+    
+    <title>Study Buddy (स्टडी बडी) - Smart Education Web App</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Top Application Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="title-group">
+                    <div class="brand-row">
+                        <span class="app-logo">📚</span>
+                        <h1 class="app-title">Study Buddy</h1>
+                        <span class="badge-hindi">स्टडी बडी</span>
+                    </div>
+                    <p class="welcome-text">नमस्ते! अपनी पढ़ाई को आसान और मजेदार बनाएं</p>
+                </div>
+                <div class="header-actions">
+                    <button id="themeToggleBtn" class="icon-btn" aria-label="थीम बदलें" title="डार्क/लाइट मोड">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                    <button id="infoBtn" class="icon-btn" aria-label="ऐप जानकारी" title="जानकारी एवं डाउनलोड गाइड">
+                        <span>ℹ️</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Motivational Banner -->
+            <div class="quote-banner">
+                <div class="quote-text">
+                    <span class="quote-icon">💡</span>
+                    <span>“ज्ञान ही शक्ति है — निरंतर अभ्यास ही सफलता की कुंजी है।”</span>
+                </div>
+                <div class="streak-pill">
+                    <span>🔥</span>
+                    <strong>5 दिन स्ट्रीक</strong>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- SECTION 1: STUDY NOTES -->
+            <section id="sectionNotes" class="tab-section active">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="notesSearchInput" placeholder="अध्याय या विषय खोजें (उदा. प्रकाश, गति, भिन्न)..." autocomplete="off">
+                    <button id="clearSearchBtn" class="clear-btn" style="display: none;" aria-label="साफ़ करें">✕</button>
+                </div>
+
+                <!-- Filter Chips -->
+                <div class="filter-chips-row">
+                    <button class="chip active" data-class="all">सभी कक्षाएँ</button>
+                    <button class="chip" data-class="6">कक्षा 6</button>
+                    <button class="chip" data-class="7">कक्षा 7</button>
+                    <button class="chip" data-class="8">कक्षा 8</button>
+                    <button class="chip" data-class="9">कक्षा 9</button>
+                    <button class="chip" data-class="10">कक्षा 10</button>
+                    <button class="chip bookmark-chip" id="bookmarkFilterBtn">
+                        <span class="star-icon">★</span> सहेजे गए
+                    </button>
+                </div>
+
+                <div class="section-meta-row">
+                    <span id="notesCountLabel" class="meta-count">10 अध्याय नोट्स उपलब्ध</span>
+                    <span id="bookmarkActiveBadge" class="meta-badge" style="display: none;">बुकमार्क सक्रिय</span>
+                </div>
+
+                <!-- Notes Cards Container -->
+                <div id="notesList" class="cards-list">
+                    <!-- Populated dynamically via app.js -->
+                </div>
+            </section>
+
+            <!-- SECTION 2: QUIZ -->
+            <section id="sectionQuiz" class="tab-section">
+                <!-- Quiz In-Progress View -->
+                <div id="quizActiveView">
+                    <div class="quiz-progress-card">
+                        <div class="quiz-progress-header">
+                            <span id="quizQuestionCounter" class="progress-counter">प्रश्न 1 / 5</span>
+                            <div class="high-score-badge">
+                                <span>🏆</span>
+                                <span id="quizHighScoreHeader">सर्वश्रेष्ठ: 0/5</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div id="quizProgressBar" class="progress-bar-fill" style="width: 20%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="card question-card">
+                        <div class="question-badges">
+                            <span id="quizClassBadge" class="tag class-tag">कक्षा 10</span>
+                            <span id="quizSubjectBadge" class="tag subject-tag">विज्ञान</span>
+                        </div>
+                        <h2 id="quizQuestionText" class="question-text">प्रश्न लोड हो रहा है...</h2>
+                    </div>
+
+                    <div class="options-header">उत्तर का चयन करें:</div>
+                    <div id="quizOptionsList" class="options-list">
+                        <!-- Options populated dynamically -->
+                    </div>
+
+                    <!-- Explanation Card (visible after checking) -->
+                    <div id="quizExplanationCard" class="card explanation-card" style="display: none;">
+                        <div class="explanation-title-row">
+                            <span id="explanationIcon">💡</span>
+                            <strong id="explanationStatus">सही उत्तर!</strong>
+                        </div>
+                        <p id="explanationText" class="explanation-body"></p>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="action-btn-row">
+                        <button id="quizActionBtn" class="btn btn-primary btn-block" disabled>
+                            उत्तर जांचें (Check Answer)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Results View -->
+                <div id="quizResultsView" style="display: none;">
+                    <div class="card results-card">
+                        <div id="resultsTrophy" class="trophy-circle">🌟</div>
+                        <h2 class="results-heading">प्रश्नोत्तरी परिणाम (Quiz Results)</h2>
+                        <div id="resultsScoreDisplay" class="results-score">5 में से 4 सही</div>
+                        <div id="resultsPercentageDisplay" class="results-percent">सफलता दर: 80%</div>
+                        <div id="resultsMessageBanner" class="results-banner">शाबाश! आपने बहुत अच्छा प्रयास किया!</div>
+
+                        <div class="stats-row">
+                            <div class="stat-box">
+                                <span class="stat-label">उच्चतम स्कोर</span>
+                                <strong id="resultsHighScore" class="stat-val">4 / 5</strong>
+                            </div>
+                            <div class="stat-divider"></div>
+                            <div class="stat-box">
+                                <span class="stat-label">कुल प्रयास</span>
+                                <strong id="resultsTotalPlayed" class="stat-val">1 बार</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-btn-row">
+                        <button id="restartQuizBtn" class="btn btn-primary btn-block">
+                            🔄 पुनः प्रयास करें (Restart Quiz)
+                        </button>
+                    </div>
+
+                    <div class="review-header">
+                        <h3>सभी 5 प्रश्नों की समीक्षा (Question Review)</h3>
+                    </div>
+                    <div id="quizReviewList" class="review-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: MATH PRACTICE -->
+            <section id="sectionMath" class="tab-section">
+                <!-- Topic Selector -->
+                <div class="math-topics-header">गणित विषय चुनें (Select Topic):</div>
+                <div class="filter-chips-row" id="mathTopicChips">
+                    <button class="chip active" data-topic="all">सभी</button>
+                    <button class="chip" data-topic="भिन्न">भिन्न</button>
+                    <button class="chip" data-topic="प्रतिशत">प्रतिशत</button>
+                    <button class="chip" data-topic="लाभ">लाभ-हानि</button>
+                    <button class="chip" data-topic="क्षेत्रफल">क्षेत्रफल</button>
+                    <button class="chip" data-topic="बीजगणित">बीजगणित</button>
+                </div>
+
+                <div class="math-status-card">
+                    <div class="status-left">
+                        <span class="math-icon">🧮</span>
+                        <span id="mathCounterLabel" class="math-counter">प्रश्न 1 / 5</span>
+                    </div>
+                    <div class="solved-pill">
+                        <span id="mathSolvedCount">कुल हल: 0</span>
+                    </div>
+                </div>
+
+                <!-- Math Problem Card -->
+                <div class="card problem-card">
+                    <div class="problem-header">
+                        <span id="mathTopicBadge" class="tag math-tag">भिन्न (Fractions)</span>
+                        <span id="mathSolvedBadge" class="solved-tag" style="display: none;">✓ हल किया गया</span>
+                    </div>
+                    <h2 id="mathQuestionText" class="problem-text">प्रश्न लोड हो रहा है...</h2>
+                </div>
+
+                <div class="options-header">उत्तर चुनें:</div>
+                <div id="mathOptionsList" class="options-list">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Toggle Buttons: Hint & Solution -->
+                <div class="math-toggle-row">
+                    <button id="toggleHintBtn" class="btn btn-outline">
+                        <span>💡</span> संकेत / सूत्र देखें
+                    </button>
+                    <button id="toggleSolutionBtn" class="btn btn-secondary">
+                        <span>📝</span> संपूर्ण हल देखें
+                    </button>
+                </div>
+
+                <!-- Hint Card -->
+                <div id="mathHintCard" class="card hint-card" style="display: none;">
+                    <div class="hint-header">💡 संकेत (Hint):</div>
+                    <p id="mathHintText" class="hint-body"></p>
+                    <div id="mathFormulaText" class="formula-box"></div>
+                </div>
+
+                <!-- Step-by-Step Solution Card -->
+                <div id="mathSolutionCard" class="card solution-card" style="display: none;">
+                    <div class="solution-header">
+                        <span>✓</span> चरणबद्ध स्पष्टीकरण (Step-by-Step Solution):
+                    </div>
+                    <div id="mathStepsList" class="steps-list"></div>
+                    <div id="mathFinalAnswerBox" class="final-answer-box"></div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="math-nav-row">
+                    <button id="prevMathBtn" class="btn btn-outline" style="display: none;">
+                        ← पिछला
+                    </button>
+                    <button id="nextMathBtn" class="btn btn-primary flex-1">
+                        अगला प्रश्न ➔
+                    </button>
+                </div>
+            </section>
+
+            <!-- SECTION 4: AI TEACHER -->
+            <section id="sectionAI" class="tab-section">
+                <!-- Honest Offline Notice -->
+                <div class="card notice-card">
+                    <div class="notice-header">
+                        <div class="notice-title">
+                            <span>🤖</span>
+                            <strong>स्मार्ट AI शिक्षक (Smart Assistant)</strong>
+                        </div>
+                        <span class="offline-pill">ऑफ़लाइन गाइड</span>
+                    </div>
+                    <p class="notice-body">
+                        ℹ️ सूचना: लाइव AI सर्वर वर्तमान में कनेक्ट नहीं है। इस संस्करण में पहले से तैयार स्मार्ट अध्ययन गाइड, महत्वपूर्ण सूत्र और परीक्षा टिप्स ऑफ़लाइन उपलब्ध हैं।
+                    </p>
+                </div>
+
+                <!-- Ask Live AI Interactive Input -->
+                <div class="card ask-ai-card">
+                    <h3 class="ask-title">कोई भी शंका या प्रश्न पूछें:</h3>
+                    <div class="ask-input-row">
+                        <input type="text" id="aiQuestionInput" placeholder="उदा. परीक्षा में तनाव कैसे कम करें?" autocomplete="off">
+                    </div>
+                    
+                    <div class="presets-label">सुझाए गए प्रश्न:</div>
+                    <div class="preset-chips-row">
+                        <button class="preset-chip" data-prompt="परीक्षा टिप्स">परीक्षा टिप्स</button>
+                        <button class="preset-chip" data-prompt="गणित के सूत्र">गणित के सूत्र</button>
+                        <button class="preset-chip" data-prompt="टाइम टेबल">टाइम टेबल</button>
+                        <button class="preset-chip" data-prompt="याद रखने का तरीका">याद रखने का तरीका</button>
+                    </div>
+
+                    <button id="askAIBtn" class="btn btn-primary btn-block">
+                        <span>📤</span> AI से पूछें (Ask AI)
+                    </button>
+                </div>
+
+                <div class="ai-resources-header">ऑफ़लाइन अध्ययन संसाधन (Offline Resources):</div>
+                <div class="filter-chips-row" id="aiCategoryChips">
+                    <button class="chip active" data-category="all">सभी</button>
+                    <button class="chip" data-category="Exam Tips">परीक्षा टिप्स</button>
+                    <button class="chip" data-category="Formula Sheet">सूत्र निर्देशिका</button>
+                    <button class="chip" data-category="Study Plan">अध्ययन योजना</button>
+                    <button class="chip" data-category="FAQ">अक्सर पूछे जाने वाले सवाल</button>
+                </div>
+
+                <div id="aiGuidesList" class="guides-accordion">
+                    <!-- Populated dynamically via app.js -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation Bar (Mobile-first) -->
+        <nav class="bottom-nav" aria-label="मुख्य नेविगेशन">
+            <button class="nav-item active" data-target="sectionNotes" aria-label="अध्ययन नोट्स">
+                <span class="nav-icon">📖</span>
+                <span class="nav-label">नोट्स</span>
+            </button>
+            <button class="nav-item" data-target="sectionQuiz" aria-label="प्रश्नोत्तरी">
+                <span class="nav-icon">🎯</span>
+                <span class="nav-label">क्विज</span>
+            </button>
+            <button class="nav-item" data-target="sectionMath" aria-label="गणित अभ्यास">
+                <span class="nav-icon">🧮</span>
+                <span class="nav-label">गणित</span>
+            </button>
+            <button class="nav-item" data-target="sectionAI" aria-label="एआई शिक्षक">
+                <span class="nav-icon">🤖</span>
+                <span class="nav-label">एआई गाइड</span>
+            </button>
+        </nav>
+
+        <!-- MODAL: Note Detail Reader -->
+        <div id="noteModal" class="modal-backdrop" style="display: none;">
+            <div class="modal-dialog modal-reader">
+                <div class="modal-header">
+                    <button id="closeNoteModalBtn" class="icon-btn" aria-label="बंद करें">✕</button>
+                    <div class="reader-tools">
+                        <button id="fontToggleBtn" class="pill-btn">फ़ॉन्ट: सामान्य</button>
+                        <button id="modalBookmarkBtn" class="icon-btn" aria-label="बुकमार्क">☆</button>
+                    </div>
+                </div>
+                
+                <div id="noteModalContent" class="modal-body">
+                    <!-- Populated when opening note -->
+                </div>
+
+                <div class="modal-footer">
+                    <button id="finishReadingBtn" class="btn btn-primary btn-block">पाठ समाप्त (Close)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL: Feature Notice Dialog for AI -->
+        <div id="aiNoticeModal" class="modal-backdrop" style="display: none;">
+            <div class="modal-dialog modal-alert">
+                <div class="alert-icon-circle">📡</div>
+                <h3 class="alert-title">लाइव AI सुविधा अभी उपलब्ध नहीं है</h3>
+                <p class="alert-desc">
+                    लाइव AI शिक्षक से सीधे प्रश्न पूछने की सुविधा आगामी संस्करण में उपलब्ध होगी। वर्तमान संस्करण (v1.0) में इंटरनेट या लॉगिन की आवश्यकता नहीं है।
+                </p>
+                <p class="alert-subdesc">
+                    आप वर्तमान में नीचे उपलब्ध ऑफ़लाइन गाइड, परीक्षा रणनीति और गणित-विज्ञान सूत्रों का निःशुल्क उपयोग कर सकते हैं!
+                </p>
+                <button id="closeAINoticeBtn" class="btn btn-primary btn-block">समझ गया (Understood)</button>
+            </div>
+        </div>
+
+        <!-- MODAL: About & Source Export Guide -->
+        <div id="infoModal" class="modal-backdrop" style="display: none;">
+            <div class="modal-dialog modal-info">
+                <div class="modal-header">
+                    <h3 class="modal-title">Study Buddy (स्टडी बडी) v1.0</h3>
+                    <button id="closeInfoModalBtn" class="icon-btn" aria-label="बंद करें">✕</button>
+                </div>
+                <div class="modal-body">
+                    <p class="app-desc">
+                        कक्षा 6 से 10 तक के हिंदी माध्यम और द्विभाषी विद्यार्थियों के लिए एक सुलभ, आधुनिक और उपयोगी शैक्षिक वेब ऐप।
+                    </p>
+
+                    <div class="info-card">
+                        <h4>मुख्य विशेषताएँ (Key Features):</h4>
+                        <ul>
+                            <li>📖 कक्षा 6-10 के विस्तृत अध्ययन नोट्स (विज्ञान व गणित)</li>
+                            <li>🎯 5-प्रश्नों की इंटरैक्टिव प्रश्नोत्तरी एवं स्कोर ट्रैकिंग</li>
+                            <li>🧮 चरणबद्ध गणित अभ्यास, संकेत और सूत्र</li>
+                            <li>🤖 ऑफ़लाइन स्मार्ट अध्ययन गाइड और परीक्षा रणनीति</li>
+                            <li>💾 प्रोग्रेस ऑटो-सेव (लोकल स्टोरेज)</li>
+                            <li>📱 मोबाइल ब्राउज़र एवं डेस्कटॉप फ्रेंडली रिस्पॉन्सिव डिज़ाइन</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card export-guide">
+                        <h4>वेब ऐप सोर्स फ़ाइलें कैसे डाउनलोड / एक्सपोर्ट करें:</h4>
+                        <ol>
+                            <li><strong>AI Studio मेनू:</strong> ऊपर दाईं ओर स्थित सेटिंग्स / डाउनलोड विकल्प से <em>"Export as ZIP"</em> चुनें।</li>
+                            <li><strong>GitHub रिपॉजिटरी:</strong> प्रोजेक्ट को सीधे अपने GitHub अकाउंट में पुश करें।</li>
+                            <li><strong>पब्लिक वेबसाइट डिप्लॉयमेंट:</strong> डाउनलोड की गई फ़ाइलों को सीधे GitHub Pages, Vercel, Netlify या Firebase Hosting पर अपलोड करें। यह बिना किसी बिल्ड स्टेप के तुरंत लाइव काम करती है!</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display: flex; gap: 8px;">
+                    <a href="study-buddy-web.zip" download="study-buddy-web.zip" class="btn btn-outline flex-1" style="text-decoration: none; font-size: 13px;">
+                        📥 डाउनलोड ZIP
+                    </a>
+                    <button id="okInfoBtn" class="btn btn-primary flex-1">ठीक है (OK)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "Study Buddy",
+  "description": "Beginner-friendly mobile-first education app with Hindi study notes for Class 6-10, 5-question interactive quiz, step-by-step math practice, and smart AI study guide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

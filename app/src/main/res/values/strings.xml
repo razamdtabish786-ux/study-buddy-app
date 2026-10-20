@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Study Buddy</string>
+    <string name="app_name_hindi">स्टडी बडी</string>
+    <string name="welcome_message">नमस्ते! अपनी पढ़ाई को आसान और मजेदार बनाएं</string>
+    <string name="nav_notes">Study Notes</string>
+    <string name="nav_notes_hindi">अध्ययन नोट्स</string>
+    <string name="nav_quiz">Quiz</string>
+    <string name="nav_quiz_hindi">प्रश्नोत्तरी</string>
+    <string name="nav_math">Math Practice</string>
+    <string name="nav_math_hindi">गणित अभ्यास</string>
+    <string name="nav_ai">AI Teacher</string>
+    <string name="nav_ai_hindi">एआई शिक्षक</string>
+</resources>
