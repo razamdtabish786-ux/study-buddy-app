@@ -95,7 +95,7 @@
             id: "note_c8_sci_1",
             classLevel: 8,
             subject: "विज्ञान",
-            chapterNumber = 8,
+            chapterNumber : 8,
             titleHindi: "कोशिका - संरचना एवं प्रकार्य",
             titleEnglish: "Cell - Structure and Functions",
             readTimeMinutes: 6,
